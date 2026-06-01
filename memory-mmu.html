@@ -19,10 +19,210 @@
 </nav>
 
 <main>
-      <h1> Memory MMU </h1>
-      <button id="darkModeBtn">Toggle Dark Mode</button>
+    <h1>OS Memory and MMU Lab</h1>
 
+    <button id="darkModeBtn">Toggle Dark Mode</button>
 
+    <section>
+        <h2>Introduction</h2>
+
+        <p>
+            This lab focused on memory management in operating systems. I explored virtual memory,
+            paging, page tables, the Memory Management Unit, Translation Lookaside Buffers and memory
+            interfacing.
+        </p>
+
+        <p>
+            The MMU translates virtual addresses into physical addresses. This allows programs to use
+            virtual memory while the operating system manages where data is actually stored in physical
+            memory.
+        </p>
+    </section>
+
+    <section>
+        <h2>Task 1: Page Mapping</h2>
+
+        <p>
+            The virtual address format used 4 bits for the virtual page number and 8 bits for the offset.
+            This means there are 2^4 virtual pages and each page contains 2^8 bytes.
+        </p>
+
+        <pre>
+        Number of virtual pages = 2^4 = 16
+        Bytes per page = 2^8 = 256 bytes
+        </pre>
+
+        <p>
+            The virtual address 0x2C8 is split into VPN 0x2 and offset 0xC8. From the page map, VPN 2
+            has resident bit 1 and PPN 4, so the page is in physical memory.
+        </p>
+
+        <pre>
+        Virtual address = 0x2C8
+        VPN = 0x2
+        Offset = 0xC8
+        PPN = 4
+
+        Physical Address = PPN x Page Size + Offset
+        Physical Address = 4 x 256 + 200
+        Physical Address = 1224 decimal = 0x4C8
+        </pre>
+
+        <img src="Pictures/task 1 mmu.png" alt="Screenshot showing task 1 memory output">
+    </section>
+
+    <section>
+        <h2>Task 2: Page Frames</h2>
+
+        <p>
+            The bottom 32KB of main memory is divided into eight page frames of 4KB each. Since 4KB is
+            4096 bytes, each page frame covers a range of 4096 memory addresses.
+        </p>
+
+        <table>
+            <tr>
+                <th>Frame</th>
+                <th>Address Range</th>
+            </tr>
+            <tr><td>0</td><td>0 - 4095</td></tr>
+            <tr><td>1</td><td>4096 - 8191</td></tr>
+            <tr><td>2</td><td>8192 - 12287</td></tr>
+            <tr><td>3</td><td>12288 - 16383</td></tr>
+            <tr><td>4</td><td>16384 - 20479</td></tr>
+            <tr><td>5</td><td>20480 - 24575</td></tr>
+            <tr><td>6</td><td>24576 - 28671</td></tr>
+            <tr><td>7</td><td>28672 - 32767</td></tr>
+        </table>
+
+        <p>
+            Therefore, the missing values are A = 32767, B = 24575, C = 16383 and D = 4095.
+        </p>
+        <img src="Pictures/task 2 mmu.png">
+    </section>
+
+    <section>
+        <h2>Task 3: 32-bit Address Translation</h2>
+
+        <p>
+            In this task, the first 20 bits of the virtual address represent the virtual page number,
+            and the final 12 bits represent the offset.
+        </p>
+
+        <pre>
+            Virtual address = 00000000000000000011000010110111
+
+            VPN = first 20 bits = 00000000000000000011 = 3
+            Offset = last 12 bits = 000010110111 = 183 decimal = 0x0B7
+        </pre>
+
+        <p>
+            For virtual page 3, the page table shows that the page is present and the page frame value
+            is 011 binary, which is 3 in decimal.
+        </p>
+
+        <pre>
+            PPN = 011 binary = 3 decimal
+
+            Physical Address = PPN x Page Size + Offset
+            Physical Address = 3 x 4096 + 183
+            Physical Address = 12471 decimal = 0x30B7
+        </pre>
+
+        <img src="Pictures/task 3 mmu.png" alt="Screenshot showing task 3 address translation output">
+    </section>
+
+    <section>
+        <h2>Task 4: Translation Lookaside Buffer</h2>
+
+        <p>
+            A Translation Lookaside Buffer is a small cache used by the MMU to speed up virtual-to-physical
+            address translation. If the VPN is found in the TLB, it is a TLB hit. If it is not found, it is
+            a TLB miss and the page table must be checked.
+        </p>
+
+        <h3>Task 4.1: TLB Calculations</h3>
+
+        <pre>
+            Virtual memory = 2^32 bytes
+            Physical memory = 2^24 bytes
+            Page size = 2^10 bytes
+
+            Pages in physical memory = 2^24 / 2^10 = 2^14 = 16384
+            Page table entries = 2^32 / 2^10 = 2^22 = 4194304
+            Bits per page table entry = 14 PPN bits + 2 control bits = 16 bits
+            Pages occupied by page table = 8192 pages
+        </pre>
+
+        <h3>Task 4.2: Address Examples</h3>
+
+        <p>
+            For virtual address 0x1804, the lower 10 bits are the offset. The VPN is 6 and the offset is
+            0x004. VPN 6 is found in the TLB with resident bit 1 and PPN 2, so this is a TLB hit.
+        </p>
+
+        <pre>
+            Virtual address = 0x1804
+            VPN = 6
+            Offset = 0x004
+            PPN = 2
+
+            Physical Address = 2 x 1024 + 4 = 2052 decimal = 0x804
+        </pre>
+
+        <p>
+            For virtual address 0x0FC, the VPN is 0 and the offset is 0x0FC. The resident bit is 0, so
+            this causes a page fault. The operating system would need to load the page into memory before
+            a valid physical address could be produced.
+        </p>
+
+        <img src="Pictures/task 4 mmu.png" alt="Screenshot showing TLB calculation output">
+    </section>
+
+    <section>
+        <h2>Task 5: Memory Interface</h2>
+
+        <p>
+            The memory interface task involved using decoder bits and control bits to identify memory
+            operations. For 16 memory locations, 4 decoder input bits are required because 2^4 = 16.
+        </p>
+
+        <p>
+            The control bits are Write, Read and Enable. This means the combined address pattern uses
+            3 control bits plus 4 decoder bits.
+        </p>
+
+        <pre>
+            Read memory location containing FEAD:
+            Index A = 1010
+            Write = 0, Read = 1, Enable = 1
+            Combined address = 0111010
+
+            Write to memory location C:
+            Index C = 1100
+            Write = 1, Read = 0, Enable = 1
+            Combined address = 1011100
+        </pre>
+
+        <img src="Pictures/task 5 mmu.png" alt="Screenshot showing memory interface output">
+    </section>
+
+   
+
+    <section>
+        <h2>Reflection</h2>
+
+        <p>
+            This lab helped me understand how operating systems manage memory using paging and address
+            translation. I learned how a virtual address can be split into a page number and offset, and
+            how the MMU uses the page table or TLB to find the physical address.
+        </p>
+
+        <p>
+            This is useful in industry because memory management is important for performance, security
+            and system stability. TLBs improve performance by caching recent translations, while page
+            faults allow operating systems to load memory only when needed.
+        </p>
+    </section>
 </main>
 
 <script src="script.js"></script>
