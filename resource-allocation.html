@@ -19,10 +19,171 @@
 </nav>
 
 <main>
-      <h1> Resource Allocation </h1>
-     <button id="darkModeBtn">Toggle Dark Mode</button>
+    <h1>OS Resource Allocation Lab</h1>
 
+    <button id="darkModeBtn">Toggle Dark Mode</button>
+
+    <section>
+        <h2>Introduction</h2>
+
+        <p>
+            This lab focused on resource allocation in operating systems and how deadlock can be avoided
+            using Banker's Algorithm. Resource allocation is important because processes often need access
+            to limited resources such as memory, files, CPU time and input/output devices.
+        </p>
+
+        <p>
+            Banker's Algorithm checks whether a system is in a safe or unsafe state. A safe state means
+            there is at least one order in which all processes can finish without causing deadlock.
+        </p>
+    </section>
+
+    <section>
+        <h2>Initial Data</h2>
+
+        <p>
+            The system contains five processes and three resource types: R1, R2 and R3.
+            The maximum demand matrix used in the lab is shown below.
+        </p>
+
+        <table>
+            <tr>
+                <th>Process</th>
+                <th>R1</th>
+                <th>R2</th>
+                <th>R3</th>
+            </tr>
+            <tr><td>P1</td><td>7</td><td>5</td><td>4</td></tr>
+            <tr><td>P2</td><td>3</td><td>2</td><td>2</td></tr>
+            <tr><td>P3</td><td>9</td><td>0</td><td>2</td></tr>
+            <tr><td>P4</td><td>2</td><td>2</td><td>2</td></tr>
+            <tr><td>P5</td><td>4</td><td>4</td><td>4</td></tr>
+        </table>
+
+        <p>
+            The need matrix is calculated using the formula:
+        </p>
+
+        <pre>Need = Maximum - Allocation</pre>
+    </section>
+
+    <section>
+        <h2>Task 1: Manual Analysis with Banker's Algorithm</h2>
+
+        <p>
+            For the first task, I used the available resource values R1 = 10, R2 = 5 and R3 = 7.
+            I calculated the need matrix and then checked whether each process could run using the
+            available resources.
+        </p>
+
+        <p>
+            If a process can run, it completes and releases its allocated resources back into the
+            available resource pool. This increases the available resources and may allow other
+            processes to run.
+        </p>
+
+        <p>
+            The system was found to be in a safe state because all processes were able to complete.
+        </p>
+
+        <img src="Pictures/banker-task1.png" alt="Screenshot showing Task 1 Banker's Algorithm output">
+    </section>
+
+    <section>
+        <h2>Task 2: Increasing Resource R1</h2>
+
+        <p>
+            In the second task, resource R1 was increased from 10 to 12 while R2 and R3 remained the
+            same. The new available resources were R1 = 12, R2 = 5 and R3 = 7.
+        </p>
+
+        <p>
+            Increasing R1 gave the system more flexibility because processes requiring R1 were more
+            likely to be able to run. I repeated Banker's Algorithm using the new available resource
+            values.
+        </p>
+
+        <p>
+            The system remained in a safe state because every process could still complete and release
+            its resources.
+        </p>
+
+        <img src="Pictures/banker-task2.png" alt="Screenshot showing Task 2 Banker's Algorithm output">
+    </section>
+
+    <section>
+        <h2>Task 3: Further Increase in Resources</h2>
+
+        <p>
+            In the third task, R2 was also increased. The new available resources became R1 = 12,
+            R2 = 7 and R3 = 7.
+        </p>
+
+        <p>
+            Increasing resources improves the chance of the system being safe because more processes
+            can have their needs satisfied. This can reduce waiting time and improve system performance.
+        </p>
+
+        <p>
+            The system was again found to be safe. The extra R2 resources made it easier for the
+            algorithm to find a safe sequence.
+        </p>
+
+        <img src="Pictures/banker-task3.png" alt="Screenshot showing Task 3 Banker's Algorithm output">
+    </section>
+
+    <section>
+        <h2>Task 4: C# Implementation</h2>
+
+        <p>
+            I implemented Banker's Algorithm in C#. The program calculates the need matrix, checks
+            whether each process can safely run, updates the available resources when a process completes,
+            and outputs whether the system is safe.
+        </p>
+
+        <p>
+            The program repeats the analysis for the initial state, the increased R1 state, and the
+            increased R1 and R2 state.
+        </p>
+
+        <img src="Pictures/banker-algorithm.png" alt="Screenshot showing Banker's Algorithm C# code">
+
+        
+    </section>
+
+    <section>
+        <h2>Deadlock and Safe States</h2>
+
+        <p>
+            Deadlock can happen when processes are waiting for resources held by each other, meaning
+            none of the processes can continue. Banker's Algorithm helps avoid this by checking whether
+            granting resources would leave the system in a safe state.
+        </p>
+
+        <p>
+            A safe state does not mean deadlock is impossible forever, but it means there is currently
+            at least one safe order in which all processes can complete. An unsafe state means the system
+            may move towards deadlock if resources are allocated badly.
+        </p>
+    </section>
+
+    <section>
+        <h2>Reflection</h2>
+
+        <p>
+            This lab helped me understand how operating systems manage limited resources and avoid
+            deadlock. I learned how to calculate the need matrix, compare process needs against available
+            resources, and identify a safe sequence.
+        </p>
+
+        <p>
+            This is useful in industry because servers, databases, cloud platforms and operating systems
+            must manage limited resources efficiently. Deadlock prevention and avoidance help systems
+            remain reliable, stable and responsive.
+        </p>
+    </section>
 </main>
+
 <script src="script.js"></script>
 </body>
 </html>
