@@ -5,6 +5,7 @@
     <title>Using Virtual Machines</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <nav>
@@ -20,30 +21,80 @@
 
 <main>
     <h1>Accessing and Using a Virtual Machine</h1>
+
     <button id="darkModeBtn">Toggle Dark Mode</button>
 
     <section>
-        <h2>What I did</h2>
+        <h2>Section 1: Attempting to Access the VM</h2>
+
         <p>
-            This lab introduced virtual machines. A virtual machine is a separate computer environment
-            that runs on top of physical hardware. It can be used for development, testing and hosting.
+            For this lab, I attempted to access the university virtual machine using Remote Desktop Connection.
+            The expected VM name format was STU-747171-VM1.
+        </p>
+
+        <p>
+            However, Remote Desktop could not find the computer. This prevented me from logging into the VM
+            and completing the practical deployment steps inside the virtual machine.
+        </p>
+
+        <img src="Pictures/vm-evidence.png" alt="Remote Desktop error showing VM could not be found">
+    </section>
+
+    <section>
+        <h2>Section 2: What I Would Have Done After Logging In</h2>
+
+        <p>
+            If the VM connection had worked, I would have checked whether Git was installed using the git version
+            command. I would then have cloned my GitHub portfolio repository into a Deployment folder.
+        </p>
+
+        <pre>
+git version
+cd Documents
+mkdir Deployment
+cd Deployment
+git clone https://github.com/JokerC0de/ARCHOSC-Assignment-DanielSmall.git
+        </pre>
+    </section>
+
+    <section>
+        <h2>Section 3: Hosting the Website with IIS</h2>
+
+        <p>
+            The next step would have been to check that IIS was running. IIS is Microsoft’s web server software,
+            and it can be used to host a website from a Windows Server virtual machine.
+        </p>
+
+        <pre>Get-Service w3svc</pre>
+
+        <p>
+            After confirming IIS was running, I would have copied my website files into the C:\inetpub\wwwroot
+            folder so that the website could be served from the VM.
         </p>
     </section>
 
     <section>
-        <h2>Evidence</h2>
+        <h2>Section 4: Development and Deployment Use</h2>
+
         <p>
-            I tried to access the university vm but it was not working or allowing me to connect. 
+            A virtual machine can be used as a separate environment for development, testing or deployment.
+            A development VM is useful for testing changes before they go live, while a deployment VM is used
+            to host the version that users access.
         </p>
-        <img src="Pictures/vm-evidence.png" alt="Screenshot showing VM evidence">
     </section>
 
     <section>
         <h2>Reflection</h2>
+
         <p>
-            Virtual machines are useful in industry because they allow developers and organisations
-            to run multiple isolated systems without needing separate physical computers. This is used
-            in cloud computing, testing, deployment and server hosting.
+            Although I was unable to connect to the VM, this lab helped me understand how virtual machines can
+            be used to host and test websites. The process would involve connecting through Remote Desktop,
+            cloning the GitHub repository, checking IIS, and copying the website into the web server folder.
+        </p>
+
+        <p>
+            This is useful in industry because cloud platforms often use virtual machines to host applications.
+            Separating development and deployment environments helps reduce the risk of breaking a live system.
         </p>
     </section>
 </main>
