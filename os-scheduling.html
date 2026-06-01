@@ -19,10 +19,188 @@
 </nav>
 
 <main>
-      <h1> OS Scheduling </h1>
-      <button id="darkModeBtn">Toggle Dark Mode</button>
+    <h1>OS Scheduling Lab</h1>
 
+    <button id="darkModeBtn">Toggle Dark Mode</button>
 
+    <section>
+        <h2>Introduction</h2>
+
+        <p>
+            This lab focused on CPU scheduling in operating systems. Scheduling is used to decide
+            which process should use the CPU at a particular time. I implemented long-term scheduling,
+            First-Come-First-Serve scheduling, Round Robin scheduling, and priority-based Round Robin
+            scheduling.
+        </p>
+
+        <p>
+            I used C# to calculate the scheduling results and matplotlib to create visual Gantt charts.
+            The Gantt charts show when each process is allocated CPU time.
+        </p>
+    </section>
+
+    <section>
+        <h2>Section 1: Long-Term Scheduling</h2>
+
+        <p>
+            Long-term scheduling decides which jobs are admitted into the system. In my program,
+            I filtered the jobs based on priority. Jobs with priority greater than 5 were admitted.
+        </p>
+
+        <table>
+            <tr>
+                <th>Process</th>
+                <th>Arrival Time</th>
+                <th>Execution Time</th>
+                <th>Priority</th>
+            </tr>
+            <tr><td>A</td><td>0</td><td>3</td><td>5</td></tr>
+            <tr><td>B</td><td>2</td><td>6</td><td>4</td></tr>
+            <tr><td>C</td><td>5</td><td>5</td><td>8</td></tr>
+            <tr><td>D</td><td>6</td><td>3</td><td>6</td></tr>
+            <tr><td>E</td><td>8</td><td>6</td><td>10</td></tr>
+            <tr><td>F</td><td>9</td><td>2</td><td>3</td></tr>
+            <tr><td>G</td><td>10</td><td>6</td><td>7</td></tr>
+        </table>
+
+        <p>
+            The admitted jobs were C, D, E and G because their priorities were greater than 5.
+            This shows how long-term scheduling can control which jobs enter the system.
+        </p>
+
+        <img src="Pictures/long-term scheduling output.png" alt="Screenshot showing long-term scheduling output">
+    </section>
+
+    <section>
+        <h2>Section 2: FCFS Scheduling</h2>
+
+        <p>
+            First-Come-First-Serve scheduling runs processes in the order that they arrive.
+            It is simple to implement, but it can cause shorter jobs to wait behind longer jobs.
+        </p>
+
+        <pre>
+Turnaround Time = Finish Time - Arrival Time
+Normalised Turnaround Time = Turnaround Time / Execution Time
+        </pre>
+
+        <p>
+            In my FCFS implementation, the processes were executed in arrival order:
+            A, B, C, D, E, F and G.
+        </p>
+
+        <table>
+            <tr>
+                <th>Process</th>
+                <th>Arrival</th>
+                <th>Execution</th>
+                <th>Finish</th>
+                <th>Turnaround</th>
+                <th>Normalised Turnaround</th>
+            </tr>
+            <tr><td>A</td><td>0</td><td>3</td><td>3</td><td>3</td><td>1.00</td></tr>
+            <tr><td>B</td><td>2</td><td>6</td><td>9</td><td>7</td><td>1.17</td></tr>
+            <tr><td>C</td><td>5</td><td>5</td><td>14</td><td>9</td><td>1.80</td></tr>
+            <tr><td>D</td><td>6</td><td>3</td><td>17</td><td>11</td><td>3.67</td></tr>
+            <tr><td>E</td><td>8</td><td>6</td><td>23</td><td>15</td><td>2.50</td></tr>
+            <tr><td>F</td><td>9</td><td>2</td><td>25</td><td>16</td><td>8.00</td></tr>
+            <tr><td>G</td><td>10</td><td>6</td><td>31</td><td>21</td><td>3.50</td></tr>
+        </table>
+
+        <h3>FCFS Gantt Chart</h3>
+
+        <img src="Pictures/fcfs-gantt.png" alt="FCFS Scheduling Gantt Chart">
+
+        <p>
+            The FCFS Gantt chart shows that each process runs once, in arrival order.
+            There is no interruption once a process has started.
+        </p>
+
+        <img src="Pictures/fcfs-output.png" alt="Screenshot showing FCFS scheduling output">
+    </section>
+
+    <section>
+        <h2>Section 3: Round Robin Scheduling</h2>
+
+        <p>
+            Round Robin scheduling gives each process a fixed time slice called a time quantum.
+            If the process does not finish during that time slice, it returns to the ready queue
+            and waits for another turn.
+        </p>
+
+        <p>
+            I tested Round Robin with time quantum values of 1, 3, 4 and 6. A smaller time quantum
+            gives processes more frequent turns, but it increases context switching. A larger time
+            quantum reduces switching but behaves more like FCFS.
+        </p>
+
+        <h3>Round Robin Gantt Chart - Time Quantum 1</h3>
+        <img src="Pictures/rr-tq1-gantt.png" alt="Round Robin Gantt Chart with Time Quantum 1">
+
+        <h3>Round Robin Gantt Chart - Time Quantum 3</h3>
+        <img src="Pictures/rr-tq3-gantt.png" alt="Round Robin Gantt Chart with Time Quantum 3">
+
+        <h3>Round Robin Gantt Chart - Time Quantum 4</h3>
+        <img src="Pictures/rr-tq4-gantt.png" alt="Round Robin Gantt Chart with Time Quantum 4">
+
+        <h3>Round Robin Gantt Chart - Time Quantum 6</h3>
+        <img src="Pictures/rr-tq6-gantt.png" alt="Round Robin Gantt Chart with Time Quantum 6">
+
+        <p>
+            The Gantt charts show that smaller time quantum values split processes into more CPU bursts.
+            For example, time quantum 1 creates many short executions, while time quantum 6 creates
+            fewer interruptions.
+        </p>
+
+        
+    </section>
+
+    <section>
+        <h2>Section 4: Context Switching and Priority-Based Round Robin</h2>
+
+        <p>
+            I extended the Round Robin simulation to include priority-based scheduling.
+            In this version, higher-priority processes are selected before lower-priority processes.
+        </p>
+
+        <p>
+            This demonstrates how an operating system can combine fairness with priority. Round Robin
+            gives processes time slices, while priority scheduling gives more important processes
+            earlier access to the CPU.
+        </p>
+
+        <h3>Priority-Based Round Robin Gantt Chart - Time Quantum 1</h3>
+        <img src="Pictures/priority-rr-tq1-gantt.png" alt="Priority-Based Round Robin Gantt Chart with Time Quantum 1">
+
+        <h3>Priority-Based Round Robin Gantt Chart - Time Quantum 6</h3>
+        <img src="Pictures/priority-rr-tq6-gantt.png" alt="Priority-Based Round Robin Gantt Chart with Time Quantum 6">
+
+        <p>
+            The priority-based charts show that higher-priority processes such as E, C and G are selected
+            earlier. This affects the finish times and turnaround times compared with normal Round Robin.
+        </p>
+
+        
+    </section>
+
+   
+
+    <section>
+        <h2>Reflection</h2>
+
+        <p>
+            This lab helped me understand how operating systems decide which process should use the CPU.
+            FCFS is simple and runs jobs in arrival order, but it can cause long waiting times. Round Robin
+            is fairer because each process receives a time slice, but smaller time slices increase context
+            switching.
+        </p>
+
+        <p>
+            This could be used in industry because servers, cloud systems and desktop computers often run
+            many processes at the same time. CPU scheduling helps improve fairness, responsiveness and
+            system performance.
+        </p>
+    </section>
 </main>
 
 <script src="script.js"></script>
