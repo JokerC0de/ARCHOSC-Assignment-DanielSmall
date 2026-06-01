@@ -4,12 +4,14 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+    color: #222;
 }
 
 main {
     background-color: white;
-    width: 70%;
-    margin: 80px auto;
+    width: 80%;
+    max-width: 1000px;
+    margin: 40px auto;
     padding: 30px;
     border-radius: 15px;
     border: 2px solid #1e3a8a;
@@ -19,11 +21,49 @@ main {
 h1 {
     color: #1e3a8a;
     font-size: 40px;
+    margin-bottom: 25px;
+}
+
+h2 {
+    color: #111827;
+    font-size: 24px;
+    margin-top: 30px;
 }
 
 p {
     font-size: 18px;
     color: #333;
+    line-height: 1.6;
+    max-width: 850px;
+    margin: 15px auto;
+}
+
+section {
+    margin-bottom: 35px;
+    padding: 20px;
+    border-bottom: 1px solid #d0d7e2;
+}
+
+img {
+    width: auto;
+    max-width: 90%;
+    height: auto;
+    max-height: 600px;
+    display: block;
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+pre {
+    background-color: #111827;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    text-align: left;
+    max-width: 850px;
+    margin: 20px auto;
 }
 
 nav {
