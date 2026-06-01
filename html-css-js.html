@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML, CSS and JavaScript Lab</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">GitHub & CI/CD 1</a>
+    <a href="github-cicd-2.html">GitHub & CI/CD 2</a>
+    <a href="html-css-js.html">HTML/CSS/JS</a>
+</nav>
+
+<main>
+    <h1>HTML, CSS and JavaScript Lab</h1>
+
+    <button id="darkModeBtn">Toggle Dark Mode</button>
+
+    <section>
+        <h2>Section 1: External CSS File</h2>
+
+        <p>
+            I used an external CSS file called styles.css to control the appearance of my website.
+            This file changes the background colour, text style, navigation bar, content box,
+            image sizing and dark mode styling.
+        </p>
+
+        <p>
+            The CSS file is linked to each HTML page using the link tag inside the head section.
+            This means the same styling can be used across multiple pages.
+        </p>
+
+        <pre>&lt;link rel="stylesheet" href="styles.css"&gt;</pre>
+
+        <img src="Pictures/styles evidence.png" alt="Screenshot showing styles.css file">
+        <img src="Pictures/seperate folder evidence.png">
+        <img src="Pictures/css reference.png">
+    </section>
+
+    <section>
+        <h2>Section 2: External JavaScript File</h2>
+
+        <p>
+            I created a separate JavaScript file called script.js. This file is linked at the bottom
+            of my HTML pages using the script tag.
+        </p>
+
+        <p>
+            The JavaScript adds interactivity to the website by allowing the user to toggle dark mode.
+        </p>
+
+        <pre>&lt;script src="script.js"&gt;&lt;/script&gt;</pre>
+
+        <img src="Pictures/seperate javascript file.png" alt="Screenshot showing script.js file">
+        <img src="Pictures/js reference.png">
+        
+
+    <section>
+        <h2>Section 3: Using IDs and Classes</h2>
+
+        <p>
+            I used an ID called darkModeBtn for the dark mode button. This allows JavaScript to find
+            the button using getElementById.
+        </p>
+
+        <p>
+            I also used a CSS class called dark-mode. When this class is added to the body element,
+            the colours of the page change to dark mode.
+        </p>
+
+        <pre>
+#darkModeBtn {
+    background-color: #1e3a8a;
+}
+
+.dark-mode {
+    background-color: #111827;
+}
+        </pre>
+
+        <img src="Pictures/darkmd ref.png">
+        <img src="Pictures/darkmodebtn.png">
+    </section>
+
+    <section>
+        <h2>Section 4: Navigation Bar</h2>
+
+        <p>
+            I created a navigation bar using the nav tag and hyperlink tags. This allows users to
+            move between the individual lab pages without manually opening each file.
+        </p>
+
+        <pre>
+&lt;nav&gt;
+    &lt;a href="index.html"&gt;Home&lt;/a&gt;
+    &lt;a href="github-cicd-1.html"&gt;GitHub &amp; CI/CD 1&lt;/a&gt;
+    &lt;a href="github-cicd-2.html"&gt;GitHub &amp; CI/CD 2&lt;/a&gt;
+    &lt;a href="html-css-js.html"&gt;HTML/CSS/JS&lt;/a&gt;
+&lt;/nav&gt;
+        </pre>
+
+        <img src="Pictures/navigation bar.png" alt="Screenshot showing the navigation bar">
+    </section>
+
+    <section>
+        <h2>Section 5: Dark Mode Toggle</h2>
+
+        <p>
+            I added a dark mode button to the website. When the button is clicked, JavaScript toggles
+            the dark-mode class on the body element. I also used localStorage so that the dark mode
+            setting stays active when moving between pages.
+        </p>
+
+        <pre>
+const darkModeButton = document.getElementById("darkModeBtn");
+
+if (darkModeButton) {
+    darkModeButton.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+    });
+}
+        </pre>
+
+        <img src="Pictures/dark mode.png" alt="Screenshot showing dark mode working">
+    </section>
+
+    <section>
+        <h2>Reflection</h2>
+
+        <p>
+            This lab helped me understand how HTML, CSS and JavaScript work together. HTML gives the
+            website structure, CSS controls the appearance, and JavaScript adds interactivity.
+        </p>
+
+        <p>
+            This could be used in industry because websites are usually built with separate files for
+            structure, styling and behaviour. This makes the code easier to maintain, update and reuse
+            across different pages.
+        </p>
+    </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
